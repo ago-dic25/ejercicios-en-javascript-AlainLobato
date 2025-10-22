@@ -1,51 +1,124 @@
-var alumnos = [
-    "Carlos Manuel",
-    "Cesar Oziel",
-    "Regina",
-    "Diego Leonardo",
-    "Andrea Carolina",
-    "Mayela Mayté",
-    "Eder Abraham",
-    "Diego Alonso",
-    "Naomi Michelle",
-    "Eder Abisai",
-    "Regina", //Dariela
-    "Carlos", //Manuel
-    "Carlos" //Alejandro
-,];
+let alumnos = [
+    {
+        id: 1,
+        name: "Carlos Gonzalez",
+        bachelor: "LCC",
+        semester: 7
+    },
+    {
+        id: 2,
+        name: "Alain Lobato",
+        bachelor: "LCC",
+        semester: 6
+    },
+    {
+        id: 3,
+        name: "Mayte Abigail",
+        bachelor: "LCC",
+        semester: 7
+    },
+    {
+        id: 4,
+        name: "Karla Sarahi",
+        bachelor: "LCC",
+        semester: 8
+    },
+    {
+        id: 5,
+        name: "Andrea Carolina",
+        bachelor: "LCC",
+        semester: 5
+    },
+    {
+        id: 6,
+        name: "Mayela Alejandra",
+        bachelor: "LCC",
+        semester: 4
+    },
+    {
+        id: 7,
+        name: "Barbara Silva",
+        bachelor: "LCC",
+        semester: 3
+    },
+    {
+        id: 8,
+        name: "Valeria Lopez",
+        bachelor: "LCC",
+        semester: 2
+    },
+    {
+        id: 9,
+        name: "Naomi Michelle",
+        bachelor: "LCC",
+        semester: 1
+    },
+    {
+        id: 10,
+        name: "Eder Abisai",
+        bachelor: "LCC",
+        semester: 5
+    },
+    {
+        id: 11,
+        name: "Regina Martinez",
+        bachelor: "LCC",
+        semester: 7
+    }
+];
 
-//elimina el ultimo elemento del arreglo
-alumnos.pop();
+const peopleDiv = document.getElementById('people')
 
-//Agregar 
-alumnos.push("Edgar Aurelio");
+function displayPeople() {
+    alumnos.forEach(alumno => {
+        const card = createCard(alumno)
+        peopleDiv.appendChild(card)
+    })
+}
 
-//elimina al inicio
-alumnos.shift();
+function filterPeople() {
+    const name = document.getElementById('filterInput').value
+    document.getElementById('filterInput').value = ''
+    const filtered = alumnos.filter(alumno => alumno.name.toLowerCase().includes(name.toLowerCase()))
 
-//Agrega al inicio
-alumnos.unshift("Axel Gabriel");
+    peopleDiv.innerHTML = ''
+    filtered.forEach(alumno => {
+        const card = createCard(alumno)
+        peopleDiv.appendChild(card)
+    })
+}
 
-//Cambia valor de elemento
-alumnos[4]=  "Carlos Manuel";
+function createCard(alumno) {
+    const card = document.createElement('div')
+    card.classList.add('card')
+    card.innerHTML = `
+        <h2>${alumno.name}</h2>
+        <p>Carrera: ${alumno.bachelor}</p>
+        <p>Semestre: ${alumno.semester}</p>
+    `
+    return card
+}
 
+function addStudent() {
+    const name = document.getElementById('nameInput').value
+    const bachelor = document.getElementById('bachelorInput').value
+    const semester = parseInt(document.getElementById('semesterInput').value)
 
-console.log(alumnos.indexOf("Eder Abisai"));
-console.log(alumnos.includes("Alejandro"));
+    const newStudent = {
+        id: alumnos.length + 1,
+        name: name,
+        bachelor: bachelor,
+        semester: semester
+    }
 
-console.log(alumnos.find(nombre => nombre == "Regina"));
-//Equivale a 
-// for(var i = 0; i <alumnos.length; i++){
-//     if(alumnos[i] == "Regina"){
-//         console.log(alumnos[i]);
-//         break;
-//     }
-// }
+    alumnos.push(newStudent)
 
-console.log(alumnos.findIndex(nombre => nombre=="Regina"));
-// for(var j= 0; j < alumnos.length; j++){
-//     if(alumnos[j] == "Regina"){
-//         console.log(j);
-//         break;
-//     }
-// }
+    const card = createCard(newStudent)
+    peopleDiv.appendChild(card)
+
+    document.getElementById('nameInput').value = ''
+    document.getElementById('bachelorInput').value = ''
+    document.getElementById('semesterInput').value = ''
+}
+
+displayPeople()

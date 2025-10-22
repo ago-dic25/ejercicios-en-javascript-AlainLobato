@@ -36,6 +36,28 @@
   </style>
 
 <script>
+  const hero = document.querySelector('.hero');
+  const text = hero.querySelector('h1');
+
+  hero.addEventListener('mousemove', e => {
+    const x = e.clientX;
+    const y = e.clientY;
+
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    const deltaX = x - centerX;
+    const deltaY = y - centerY;
+
+    const shadowX = deltaX / 20;
+    const shadowY = deltaY / 20;
+
+    text.style.textShadow = `
+      ${shadowX}px ${shadowY}px 0 rgba(0,0,0,0.7),
+      ${shadowX * 2}px ${shadowY * 2}px 0 rgba(0,0,0,0.5),
+      ${shadowX * 3}px ${shadowY * 3}px 0 rgba(0,0,0,0.3)
+    `;
+  });
 </script>
 </body>
 </html>

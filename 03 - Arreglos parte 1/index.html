@@ -36,24 +36,63 @@
     
     // 1. Filter para filtrar la lista de inventores que nacieron en los 1500
 
+    const fifteenHundreds = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+    console.log('Inventores que nacieron en los 1500:');
+    console.table(fifteenHundreds);
+
     // Array.prototype.map()
     // 2. Un arreglo de los apellidos de los inventores
-    
+
+    const lastNames = inventors.map(inventor => inventor.last);
+    console.log('Apellidos de los inventores:');
+    console.table(lastNames);
+
     // Array.prototype.sort()
     // 3. Ordenar los inventores por fecha de nacimiento, de los mas viejos a los mas jovenes
-    
+
+    const sorted = inventors.sort((a, b) => a.year - b.year);
+    console.log('Inventores ordenados por fecha de nacimiento:');
+    console.table(sorted);
+
     // Array.prototype.reduce()
     // 4. Cuantos años vivieron todos en total?
 
+    const totalYears = inventors.reduce((acc, inventor) => {
+      return acc + (inventor.passed - inventor.year);
+    }, 0);
+    console.log('Total de años vividos por todos los inventores:');
+    console.log(totalYears);
+
     // 5. Ordenar los inventores por años que vivieron
 
+    const oldest = inventors.sort((a, b) => {
+      const lastInventor = a.passed - a.year;
+      const nextInventor = b.passed - b.year;
+      return lastInventor - nextInventor;
+    });
+    console.log('Inventores ordenados por años vividos:');
+    console.table(oldest);
 
-    // 6. sort 
-    // Ordenar la gente alfabeticamente por apellido 
+    // 6. sort
+    // Ordenar la gente alfabeticamente por apellido
+
+    const alpha = people.sort();
+    console.log('Gente ordenada alfabeticamente por apellido:');
+    console.table(alpha);
 
     // 7. Reduce
     // Sumar las instancias de cada uno de los siguientes medios de transporte
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const transportation = data.reduce((obj, item) => {
+      if (!obj[item]) obj[item] = 0;
+      
+      obj[item]++;
+      return obj;
+    }, {});
+
+    console.log('Instancias de cada medio de transporte:');
+    console.log(transportation);
 
   </script>
 </body>
